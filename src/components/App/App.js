@@ -5,10 +5,22 @@ import { connect } from 'react-redux'
 
 class App extends Component {
     render() {
+        const lists = this.props.lists
         return (
-            <div className='app' >
-                <List title='What need to do?' items={this.props.items}  />
-                <List/>
+            <div className='app' >          
+
+                { lists.map(({title, cards, index}, idx) => {
+                    return (
+                        <List 
+                            title={title} 
+                            items={cards}
+                            index={index}
+                            key={idx}
+                        />
+                    )
+                }) }
+                <List />
+                
             </div>
         );
     }
@@ -16,7 +28,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items
+        lists: state.lists
     }
 }
 

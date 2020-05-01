@@ -1,6 +1,14 @@
-export const createCard = (text) => {
+export const createCard = (text, index) => {
     return {
         type: 'CREATE_CARD',
-        payload: text
+        payload: {
+            index, text
+        }
+    }
+}
+export const createList = (title) => {
+    return {
+        type: 'CREATE_LIST',
+        payload: title
     }
 }

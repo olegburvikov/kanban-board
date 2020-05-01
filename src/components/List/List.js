@@ -6,22 +6,28 @@ import AddForm from '../AddForm/AddForm';
 import classNames from 'classnames'
 
 
-const List = ({items = [], title}) => {
+const List = ({items = [], title, index}) => {
+    
     return (
         <div className="list-wrapper">
-            <div className={classNames('list', {'list--empty': !items.length})} >
+            <div className={classNames('list', {'list--empty': !title})} >
+
                 { title && <div className="list__title">{title}</div> }
+
                 <div className="list-cards-wrapper">
-                    { items.map( (card, idx) => <Card {...card} key={idx} /> ) }
+                    { items.map( (card, idx) => <Card text={card} key={idx} /> ) }
                 </div>
-                <AddForm />
+
+                <AddForm listIndex={index} isEmptyList={title ? false : true} />
+
             </div>
         </div>
     );
 };
 
 List.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    index: PropTypes.number.isRequired
 }
 
 export default List;
