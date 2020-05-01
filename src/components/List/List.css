@@ -1,0 +1,25 @@
+.list-wrapper {
+    width: 272px;
+    margin: 0 8px;
+    height: 100%;
+}
+
+.list {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ebecf0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    padding: 5px 10px 5px;
+    white-space: normal;
+}
+
+.list__title {
+    font-weight: 700;
+    padding: 10px;
+    color: #172b4d;
+}

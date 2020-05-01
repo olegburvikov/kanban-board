@@ -1,0 +1,25 @@
+.list-button {
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    margin: 2px 0 8px;
+    align-items: center;
+    text-align: left;
+    color: #5e6c84;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.list-button:hover {
+    background-color: rgba(9,30,66,.08);
+    color: #172b4d;
+
+}
+
+.list-button__plus {
+    padding-right: 5px;
+    font-size: 20px;
+}
