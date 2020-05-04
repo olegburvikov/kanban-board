@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import './AddForm.css';
 
 import Button from '../Button/Button';
-import cancelSvg from './cancel.svg';
+import cancelSvg from '../../assets/icons/cancel.svg';
 import { createCard, createList } from '../../redux/actions';
 
 const AddForm = ({listIndex, isEmptyList}) => {
@@ -37,7 +37,7 @@ const AddForm = ({listIndex, isEmptyList}) => {
       }
 
     const onItemAdd = () => {
-        if(textAreaVal) {
+        if(textAreaVal.trim()) {
             isEmptyList ? 
                 dispatch(createList(textAreaVal)):
                 dispatch(createCard(textAreaVal, listIndex));
@@ -58,7 +58,7 @@ const AddForm = ({listIndex, isEmptyList}) => {
                 ) : (
                 <div className='add-form-wrapper'>
                     <textarea 
-                        onInput={onInputHandler} 
+                        onChange={onInputHandler} 
                         onKeyPress={keyPressed}
                         value={textAreaVal} 
                         ref={textareaEl} 

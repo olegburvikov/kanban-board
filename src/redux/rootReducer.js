@@ -1,6 +1,22 @@
 
 const initialState = {
-    lists: []
+    lists: [
+        {
+            index: 1, 
+            title: 'one', 
+            cards: ['some']
+        },
+        {
+            index: 2, 
+            title: 'two', 
+            cards: ['one','two']
+        },
+        {
+            index: 3, 
+            title: '3', 
+            cards: ['4','5']
+        }
+    ]
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -19,6 +35,38 @@ export const rootReducer = (state = initialState, action) => {
                     return item;
                 })
             }
+
+        case 'DELETE_CARD':
+            return {
+                ...state,
+                lists: state.lists.map((list) => {
+                    if(list.index !== action.payload.listIndex) {
+                        return list;
+                    } else {
+                        return {
+                            ...list,
+                            cards: list.cards.filter( (card, index) => index !== action.payload.cardIndex )
+                        }
+                    }
+                })
+            }
+
+        case 'RENAME_CARD':
+            return {
+                ...state,
+                lists: state.lists.map((list) => {
+                    if(list.index !== action.payload.listIndex) {
+                        return list;
+                    } else {
+                        return {
+                            ...list,
+                            cards: list.cards.map( (card, index) => index === action.payload.cardIndex ? action.payload.text : card )
+                        }
+                    }
+                })
+            }
+
+
         case 'CREATE_LIST':
             let biggestCurrentIndex;
 
@@ -36,6 +84,28 @@ export const rootReducer = (state = initialState, action) => {
                     { index: biggestCurrentIndex + 1, title: action.payload, cards: [] }
                 ]
             } 
+
+        case 'DELETE_LIST':
+            return {
+                ...state,
+                lists: state.lists.filter((item) => item.index !== action.payload)
+            }
+
+        case 'RENAME_LIST':
+            return {
+                ...state,
+                lists: state.lists.map((list) => {
+                    if(list.index === action.payload.listIndex) {
+                        return {
+                            ...list,
+                            title: action.payload.text,
+                        }
+                    } else {
+                        return list
+                    }
+                } )
+            }
+
 
         default:
             return state;

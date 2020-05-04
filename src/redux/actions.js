@@ -6,9 +6,47 @@ export const createCard = (text, index) => {
         }
     }
 }
+
+export const deleteCard = (listIndex, cardIndex) => {
+    return {
+        type: 'DELETE_CARD',
+        payload: {
+            listIndex, cardIndex
+        }
+    }
+}
+
+export const renameCard = (text, listIndex, cardIndex) => {
+    return {
+        type: 'RENAME_CARD',
+        payload: {
+            text,
+            listIndex, 
+            cardIndex
+        }
+    }
+}
+
 export const createList = (title) => {
     return {
         type: 'CREATE_LIST',
         payload: title
+    }
+}
+
+export const deleteList = (index) => {
+    return {
+        type: 'DELETE_LIST',
+        payload: index
+    }
+}
+
+export const renameList = (text, listIndex) => {
+    return {
+        type: 'RENAME_LIST',
+        payload: {
+            text,
+            listIndex
+        }
     }
 }

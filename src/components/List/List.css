@@ -20,6 +20,22 @@
 
 .list__title {
     font-weight: 700;
-    padding: 10px;
+    padding-right: 10px;
     color: #172b4d;
+    display: flex;
+    justify-content: space-between;
+}
+.list__title-field {
+    padding-left: 10px;
+    line-height: 36px;
+    width: 100%;
+}
+.list__title .list__delete-btn {
+    background-color: transparent;
+    border: none;
+    color: #727E92;
+    cursor: pointer;
+}
+.list__title .list__delete-btn:hover {
+    text-decoration: underline;
 }

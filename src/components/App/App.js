@@ -14,7 +14,7 @@ class App extends Component {
                         <List 
                             title={title} 
                             items={cards}
-                            index={index}
+                            listIndex={index}
                             key={idx}
                         />
                     )
