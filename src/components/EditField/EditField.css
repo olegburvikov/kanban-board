@@ -1,6 +1,5 @@
 .edit-field {
-    padding: 0 12px;
-    line-height: 26px;
+    padding: 9px 10px;
     background-color: rgb(255, 255, 255);
     border-radius: 3px;
     border: none;
@@ -14,19 +13,13 @@
 }
 
 .edit-field--list {
-    height: 29px;
-    margin: 3.5px 0;
+    padding: 9.5px 0 9.5px 12px;
+    margin: 2.5px 0 4.5px 0;
+    margin-right: 0;
+    margin-left: 5px;
 }
 
-.edit-field__button {
-    position: absolute;
-    bottom: -42px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-    background-color: rgb(93, 165, 0);
-    cursor: pointer;
-}
+
 
 .edit-form {
     position: relative;

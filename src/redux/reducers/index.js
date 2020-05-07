@@ -3,25 +3,29 @@ const initialState = {
     lists: [
         {
             index: 1, 
-            title: 'one', 
+            title: 'To Do', 
             cards: [
                 {
-                    id: 1,
-                    text: 'some'
+                    id: 3,
+                    text: 'Learn React'
+                },
+                {
+                    id: 4,
+                    text: 'wake up at 6:00am'
                 }
             ]
         },
         {
             index: 2, 
-            title: 'two', 
+            title: 'Done', 
             cards: [
                 {
-                    id: 3,
-                    text: 'one'
+                    id: 5,
+                    text: 'Go for a walk'
                 },
                 {
-                    id: 4,
-                    text: 'two'
+                    id: 6,
+                    text: 'Drink coffee'
                 }
             ]
         }

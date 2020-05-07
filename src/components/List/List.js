@@ -17,24 +17,28 @@ const List = ({items = [], title, listIndex}) => {
     const dispatch = useDispatch()
 
     return (
-        <Droppable droppableId={String(listIndex)}>
-            {(provided) => (
-                <div className="list-wrapper">
-                    <div className={classNames('list', {'list--empty': !title})} >
-                        { title && 
-                            <div className="list__title">
-                                {showEdit ? 
-                                    <EditField 
-                                        showEditVal={showEdit} 
-                                        listIndex={listIndex}  
-                                        onSetShowEdit={setShowEdit} 
-                                        fieldType='forList' 
-                                    /> : 
-                                    <div className='list__title-field' onClick={ () => setShowEdit(true)}>{title}</div>}
-                                <button onClick={() => dispatch(deleteList(listIndex))} className='list__delete-btn' >delete</button>
-                            </div> }
+       
+        <div className="list-wrapper" >
+            
+            <div className={classNames('list', {'list--empty': !title})} >
+                
+                { title && 
+                    <div className="list__title">
+                        {showEdit ? 
+                            <EditField 
+                                showEditVal={showEdit} 
+                                listIndex={listIndex}  
+                                onSetShowEdit={setShowEdit} 
+                                fieldType='forList' 
+                            /> : 
+                            <div className='list__title-field' onClick={ () => setShowEdit(true)}>{title}</div>}
+                        <button onClick={() => dispatch(deleteList(listIndex))} className='list__delete-btn' >delete</button>
+                    </div> }
 
-                        <div {...provided.droppableProps} ref={provided.innerRef} className="list-cards-wrapper">
+                { title && (<Droppable droppableId={String(listIndex)}>
+                    {(provided) => (
+                        <div ref={provided.innerRef} className={classNames('list-cards-wrapper', {'overflow-auto': items.length > 10})}>
+                
                             {items.map((card, index) => {
                                 return (
                                     <Card text={card.text} 
@@ -47,12 +51,14 @@ const List = ({items = [], title, listIndex}) => {
                             })}
                             {provided.placeholder}
                         </div> 
-                        
-                        <AddForm listIndex={listIndex} isEmptyList={title ? false : true} />
-                    </div>
-                </div>
-            )}
-        </Droppable>
+                    )}
+                </Droppable>) }
+
+                <AddForm listIndex={listIndex} isEmptyList={title ? false : true} />
+
+            </div>
+        </div>
+           
     );
 };
 
