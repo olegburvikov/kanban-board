@@ -4,17 +4,26 @@ const initialState = {
         {
             index: 1, 
             title: 'one', 
-            cards: ['some']
+            cards: [
+                {
+                    id: 1,
+                    text: 'some'
+                }
+            ]
         },
         {
             index: 2, 
             title: 'two', 
-            cards: ['one','two']
-        },
-        {
-            index: 3, 
-            title: '3', 
-            cards: ['4','5']
+            cards: [
+                {
+                    id: 3,
+                    text: 'one'
+                },
+                {
+                    id: 4,
+                    text: 'two'
+                }
+            ]
         }
     ]
 }
@@ -25,14 +34,14 @@ export const rootReducer = (state = initialState, action) => {
         case 'CREATE_CARD': 
             return { 
                 ...state,
-                lists: state.lists.map((item) => {
-                    if(action.payload.index === item.index) {
+                lists: state.lists.map((list) => {
+                    if(action.payload.index === list.index) {
                         return {
-                            ...item,
-                            cards: [ ...item.cards, action.payload.text ]
+                            ...list,
+                            cards: [ ...list.cards, { text: action.payload.text, id: new Date().getTime()  } ]
                         }
                     }
-                    return item;
+                    return list;
                 })
             }
 
@@ -45,7 +54,7 @@ export const rootReducer = (state = initialState, action) => {
                     } else {
                         return {
                             ...list,
-                            cards: list.cards.filter( (card, index) => index !== action.payload.cardIndex )
+                            cards: list.cards.filter( (card) => card.id !== action.payload.cardIndex )
                         }
                     }
                 })
@@ -60,7 +69,10 @@ export const rootReducer = (state = initialState, action) => {
                     } else {
                         return {
                             ...list,
-                            cards: list.cards.map( (card, index) => index === action.payload.cardIndex ? action.payload.text : card )
+                            cards: list.cards.map( (card) => {
+                                return card.id === action.payload.cardIndex ?
+                                { text: action.payload.text, id: card.id } : card
+                            } )
                         }
                     }
                 })
@@ -106,6 +118,41 @@ export const rootReducer = (state = initialState, action) => {
                 } )
             }
 
+        case 'DRAG_HAPPENED':
+            const {droppableIdStart,
+                droppableIdEnd,
+                droppableIndexStart,
+                droppableIndexEnd} = action.payload;
+            const newState = {...state}
+            
+            // drop in the same list
+            if(droppableIdStart === droppableIdEnd) {
+                 // find the list where drag happened
+                const list = state.lists.find(list => droppableIdStart === list.index.toString())
+
+                // pull out card from this position
+                const card = list.cards.splice(droppableIndexStart, 1)
+
+                // put the card on new position
+                list.cards.splice(droppableIndexEnd, 0, ...card);                
+            }
+           
+            // drop in other list
+            if(droppableIdStart !== droppableIdEnd) {
+                // find the list where drag happened
+                const listStart = state.lists.find(list => droppableIdStart === list.index.toString())
+
+                // pull out card from this list
+                const card = listStart.cards.splice(droppableIndexStart, 1);
+
+                // find the list where draf ended
+                const listEnd = state.lists.find(list => droppableIdEnd === list.index.toString());
+
+                // put the card in the new list
+                listEnd.cards.splice(droppableIndexEnd, 0 , ...card)
+            }
+
+            return newState
 
         default:
             return state;

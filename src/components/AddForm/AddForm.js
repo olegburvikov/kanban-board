@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types'
 
 import './AddForm.css';
 
@@ -34,7 +35,7 @@ const AddForm = ({listIndex, isEmptyList}) => {
             event.preventDefault()
             onItemAdd();
         }
-      }
+    }
 
     const onItemAdd = () => {
         if(textAreaVal.trim()) {
@@ -68,15 +69,24 @@ const AddForm = ({listIndex, isEmptyList}) => {
                             'Enter a title for this list...' : 
                             'Enter a title for this card...'} 
                     />
-
                     <div className="add-form__bottom">
-                        <button onClick={onItemAdd} className='add-form__submit' >{isEmptyList ? 'Add list' : 'Add card'}</button>
-                        <img className='add-form__cancel' onClick={() => setShowForm(false)} src={cancelSvg} alt="cancel svg icon"/>
+                        <button onClick={onItemAdd} className='add-form__submit' >
+                            {isEmptyList ? 'Add list' : 'Add card'}
+                        </button>
+                        <img className='add-form__cancel' 
+                            onClick={() => setShowForm(false)} 
+                            src={cancelSvg} alt="cancel svg icon"
+                        />
                     </div>
                 </div>
             )}
         </div>
     );
 };
+
+AddForm.prototype = {
+    listIndex: PropTypes.number.isRequired,
+    isEmptyList: PropTypes.bool.isRequired
+}
 
 export default AddForm;

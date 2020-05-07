@@ -1,6 +1,8 @@
 import React from 'react';
-import './Button.css';
 import PropTypes from 'prop-types'
+
+import './Button.css';
+
 const Button = ({children, onDefaultClick}) => {
     return (
         <button className='list-button' onClick={onDefaultClick} >
@@ -12,7 +14,7 @@ const Button = ({children, onDefaultClick}) => {
 
 Button.prototype = {
     children: PropTypes.string.isRequired,
-    onDefaultClick: PropTypes.func
+    onDefaultClick: PropTypes.func.isRequired
 }
 
 export default Button;

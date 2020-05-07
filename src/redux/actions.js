@@ -50,3 +50,22 @@ export const renameList = (text, listIndex) => {
         }
     }
 }
+
+export const sort = (
+    droppableIdStart,
+    droppableIdEnd,
+    droppableIndexStart,
+    droppableIndexEnd,
+    droppableId
+) => {
+    return {
+        type: 'DRAG_HAPPENED',
+        payload: {
+            droppableIdStart,
+            droppableIdEnd,
+            droppableIndexStart,
+            droppableIndexEnd,
+            droppableId
+        }
+    }
+}

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames'
 
-import { renameCard, renameList } from '../../redux/actions'
 import './EditField.css'
 
-const EditField = ( {onSetShowEdit, cardIndex, listIndex, fieldType} ) => {
+import { renameCard, renameList } from '../../redux/actions'
+
+const EditField = ( {onSetShowEdit, cardId, listIndex, fieldType} ) => {
     const dispatch = useDispatch()
     const editInputEl = useRef(null);
     
@@ -30,12 +31,13 @@ const EditField = ( {onSetShowEdit, cardIndex, listIndex, fieldType} ) => {
         event.preventDefault();
         if (editInputEl.current.value.trim()) {
             onSetShowEdit(false);
+            
             switch (fieldType) {
                 case 'forList':
                     dispatch(renameList(editInputEl.current.value, listIndex));
                     break;
                 case 'forCard':
-                    dispatch(renameCard(editInputEl.current.value, listIndex, cardIndex));
+                    dispatch(renameCard(editInputEl.current.value, listIndex, cardId));
                     break;
                 default: break;
             }
@@ -43,9 +45,8 @@ const EditField = ( {onSetShowEdit, cardIndex, listIndex, fieldType} ) => {
         }
     }
 
-
     return (
-        <form onSubmit={ onSubmitHandler } >
+        <form className='edit-form' onSubmit={ onSubmitHandler } >
             <input ref={editInputEl} className={classNames('edit-field', {'edit-field--list': fieldType === 'forList'})} type="text"/>
         </form>
     );
@@ -53,7 +54,7 @@ const EditField = ( {onSetShowEdit, cardIndex, listIndex, fieldType} ) => {
 
 EditField.propTypes = {
     onSetShowEdit: PropTypes.func.isRequired,
-    cardIndex: PropTypes.number,
+    cardId: PropTypes.number.isRequired,
     listIndex: PropTypes.number.isRequired,
     fieldType: PropTypes.string.isRequired
 }
