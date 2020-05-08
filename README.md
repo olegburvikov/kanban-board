@@ -1,4 +1,6 @@
 
+In this project i wrote basic kanban board.
+
 Demo - http://burvikov-kanbanboard.surge.sh/
 
 ## Available Scripts
