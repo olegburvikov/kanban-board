@@ -37,7 +37,11 @@ const EditField = ( {onSetShowEdit, cardId, listIndex, fieldType} ) => {
                     dispatch(renameList(editInputEl.current.value, listIndex));
                     break;
                 case 'forCard':
-                    dispatch(renameCard(editInputEl.current.value, listIndex, cardId));
+                    dispatch(renameCard({
+                        text: editInputEl.current.value, 
+                        listIndex, 
+                        cardId
+                    }));
                     break;
                 default: break;
             }

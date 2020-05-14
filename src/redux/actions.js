@@ -1,6 +1,16 @@
+import {
+    CREATE_CARD,
+    DELETE_CARD,
+    RENAME_CARD,
+    CREATE_LIST,
+    DELETE_LIST,
+    RENAME_LIST,
+    DRAG_HAPPENED,
+  } from "./actionTypes";
+
 export const createCard = (text, index) => {
     return {
-        type: 'CREATE_CARD',
+        type: CREATE_CARD,
         payload: {
             index, text
         }
@@ -9,41 +19,42 @@ export const createCard = (text, index) => {
 
 export const deleteCard = (listIndex, cardIndex) => {
     return {
-        type: 'DELETE_CARD',
+        type: DELETE_CARD,
         payload: {
             listIndex, cardIndex
         }
     }
 }
 
-export const renameCard = (text, listIndex, cardIndex) => {
+export const renameCard = (card) => {
     return {
-        type: 'RENAME_CARD',
+        type: RENAME_CARD,
         payload: {
-            text,
-            listIndex, 
-            cardIndex
+            text: card.text,
+            listIndex: card.listIndex, 
+            cardId: card.cardId
         }
+
     }
 }
 
 export const createList = (title) => {
     return {
-        type: 'CREATE_LIST',
+        type: CREATE_LIST,
         payload: title
     }
 }
 
 export const deleteList = (index) => {
     return {
-        type: 'DELETE_LIST',
+        type: DELETE_LIST,
         payload: index
     }
 }
 
 export const renameList = (text, listIndex) => {
     return {
-        type: 'RENAME_LIST',
+        type: RENAME_LIST,
         payload: {
             text,
             listIndex
@@ -51,21 +62,9 @@ export const renameList = (text, listIndex) => {
     }
 }
 
-export const sort = (
-    droppableIdStart,
-    droppableIdEnd,
-    droppableIndexStart,
-    droppableIndexEnd,
-    droppableId
-) => {
+export const replaceItem = ( replaceItemInfo ) => {
     return {
-        type: 'DRAG_HAPPENED',
-        payload: {
-            droppableIdStart,
-            droppableIdEnd,
-            droppableIndexStart,
-            droppableIndexEnd,
-            droppableId
-        }
+        type: DRAG_HAPPENED,
+        payload: replaceItemInfo
     }
 }
