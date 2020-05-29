@@ -16,6 +16,11 @@ const List = ({items = [], title, listIndex}) => {
     const [ showEdit, setShowEdit ] = useState(false)
     const dispatch = useDispatch()
 
+
+    const handleClick = () => {
+        setShowEdit(true)
+    }
+
     return (
        
         <div className="list-wrapper" >
@@ -31,7 +36,7 @@ const List = ({items = [], title, listIndex}) => {
                                 onSetShowEdit={setShowEdit} 
                                 fieldType='forList' 
                             /> : 
-                            <div className='list__title-field' onClick={ () => setShowEdit(true)}>{title}</div>}
+                            <div className='list__title-field' onClick={handleClick} >{title}</div>}
                         <button onClick={() => dispatch(deleteList(listIndex))} className='list__delete-btn' >delete</button>
                     </div> }
 

@@ -77,7 +77,6 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case RENAME_CARD:
-        console.log(action.payload);
         
       return {
         ...state,
@@ -143,43 +142,55 @@ export const rootReducer = (state = initialState, action) => {
         droppableIndexEnd,
       } = action.payload;
 
-      const newState = { ...state };
-
       // drop in the same list
       if (droppableIdStart === droppableIdEnd) {
-        // find the list where drag happened
-        const list = newState.lists.find(
-          (list) => droppableIdStart === list.index.toString()
-        );
+        return {
+          ...state,
+          lists: state.lists.map((list) => {
+            if(droppableIdStart === list.index.toString()) {
 
-        // pull out card from this position
-        const card = list.cards.splice(droppableIndexStart, 1);
-
-        // put the card on new position
-        list.cards.splice(droppableIndexEnd, 0, ...card);
+              const card = list.cards[droppableIndexStart];
+              const arrWithoutDragCard = [...list.cards.slice(0, droppableIndexStart), ...list.cards.slice(droppableIndexStart + 1)]
+              return  {
+                ...list,
+                cards: [ 
+                  ...arrWithoutDragCard.slice(0, droppableIndexEnd), 
+                  {...card}, 
+                  ...arrWithoutDragCard.slice(droppableIndexEnd)  
+                ]
+              }
+            }
+            return list;
+          })
+        }
       }
-
       // drop in other list
-      if (droppableIdStart !== droppableIdEnd) {
-        // find the list where drag happened
-        const listStart = newState.lists.find(
-          (list) => droppableIdStart === list.index.toString()
-        );
-
-        // pull out card from this list
-        const card = listStart.cards.splice(droppableIndexStart, 1);
-
-        // find the list where draf ended
-        const listEnd = newState.lists.find(
-          (list) => droppableIdEnd === list.index.toString()
-        );
-
-        // put the card in the new list
-        listEnd.cards.splice(droppableIndexEnd, 0, ...card);
+      let card = state.lists.find((list) => list.index.toString() === droppableIdStart).cards[droppableIndexStart];
+      return {
+        ...state,
+        lists: state.lists.map((list) => {
+          if(list.index.toString() === droppableIdStart) {
+            return {
+              ...list,
+              cards: [
+                ...list.cards.slice(0, droppableIndexStart), 
+                ...list.cards.slice(droppableIndexStart + 1)
+              ]
+            }
+          }
+          if(list.index.toString() === droppableIdEnd) {
+            return {
+              ...list,
+              cards: [
+                ...list.cards.slice(0, droppableIndexEnd),
+                {...card}, 
+                ...list.cards.slice(droppableIndexEnd)
+              ]
+            }
+          }
+          return list;
+        })
       }
-
-      return newState;
-
     default:
       return state;
   }

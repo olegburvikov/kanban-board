@@ -58,7 +58,7 @@ const EditField = ( {onSetShowEdit, cardId, listIndex, fieldType} ) => {
 
 EditField.propTypes = {
     onSetShowEdit: PropTypes.func.isRequired,
-    cardId: PropTypes.number.isRequired,
+    cardId: PropTypes.number,
     listIndex: PropTypes.number.isRequired,
     fieldType: PropTypes.string.isRequired
 }
